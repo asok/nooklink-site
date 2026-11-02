@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <script>document.documentElement.dataset.theme=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';</script>
   <link rel="stylesheet" href="assets/site.css">
   <script src="assets/i18n.js" defer></script>
 </head>
@@ -18,17 +19,17 @@
   <header class="site-header wrap">
     <a class="brand" href="#top" aria-label="Nooklink home"><span class="brand-mark" aria-hidden="true">☾</span><span>Nooklink</span></a>
     <nav aria-label="Main navigation"><a href="#compare" data-i18n="navData">Data flow</a><a href="#setup" data-i18n="navSetup">Setup</a><a href="#specs" data-i18n="navDetails">Details</a><a class="nav-download" href="#download" data-i18n="navDownload">Download</a></nav>
-    <label class="language"><span class="sr-only" data-i18n="language">Language</span><select id="language"><option value="en">English</option><option value="pl">Polski</option><option value="zh">简体中文</option><option value="hi">हिन्दी</option><option value="es">Español</option><option value="ar">العربية</option><option value="pt">Português</option><option value="fr">Français</option></select></label>
+    <div class="header-controls"><div class="theme-picker"><span class="sr-only" data-i18n="themeLabel">Theme</span><button class="theme-toggle" id="theme" type="button" aria-label="Switch to dark theme" aria-pressed="false"><span class="theme-toggle-track" aria-hidden="true"><span class="theme-toggle-thumb"><svg class="theme-icon sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M19.4 4.6l-2.1 2.1M6.7 17.3l-2.1 2.1"></path></svg><svg class="theme-icon moon-icon" viewBox="0 0 24 24"><path d="M19.3 15.8A8.5 8.5 0 0 1 8.2 4.7 8.6 8.6 0 1 0 19.3 15.8Z"></path></svg></span></span></button><span class="sr-only" data-i18n="themeHelp">The initial theme follows your device setting.</span></div><label class="language"><span class="sr-only" data-i18n="language">Language</span><select id="language"><option value="en">English</option><option value="pl">Polski</option><option value="zh">简体中文</option><option value="hi">हिन्दी</option><option value="es">Español</option><option value="ar">العربية</option><option value="pt">Português</option><option value="fr">Français</option></select></label></div>
   </header>
   <main id="main">
     <section id="top" class="hero wrap"><div class="hero-copy"><p class="kicker" data-i18n="localOnly">Local-only · No data leaves your network</p><h1 data-i18n="heroTitle">Your nursery never touches the internet.</h1><p class="hero-lead" data-i18n="heroText">Nooklink streams from the camera phone straight to your monitor over your home Wi‑Fi. No account in the middle, no servers, no uploads.</p><div class="actions"><a class="button" href="#download" data-i18n="downloadNooklink">Download Nooklink</a><a class="button button-outline" href="#compare" data-i18n="seeDataFlow">See the data flow</a></div></div>
       <div class="app-preview-screens hero-app-screens">
         <figure class="app-screen">
-          <div class="app-screen-image"><img src="assets/app-camera.webp" width="1206" height="2622" decoding="async" alt="Nooklink Camera screen with a Start camera button and white noise controls"></div>
+          <div class="app-screen-image"><img class="app-image-dark" src="assets/app-camera.webp" width="1206" height="2622" decoding="async" alt="Nooklink Camera screen with a Start camera button and white noise controls"><img class="app-image-light" src="assets/app-camera-light.webp" width="1206" height="2622" decoding="async" alt="Nooklink Camera screen in the light theme with a Start camera button and melody controls"></div>
           <figcaption><span class="screen-dot" aria-hidden="true"></span><span data-i18n="camera">Camera</span></figcaption>
         </figure>
         <figure class="app-screen">
-          <div class="app-screen-image"><img src="assets/app-monitor.webp" width="1206" height="2622" decoding="async" alt="Nooklink Monitor screen with a Find cameras nearby button"></div>
+          <div class="app-screen-image"><img class="app-image-dark" src="assets/app-monitor.webp" width="1206" height="2622" decoding="async" alt="Nooklink Monitor screen with a Find cameras nearby button"><img class="app-image-light" src="assets/app-monitor-light.webp" width="1206" height="2622" decoding="async" alt="Nooklink Monitor screen in the light theme with a Find cameras nearby button"></div>
           <figcaption><span class="screen-dot" aria-hidden="true"></span><span data-i18n="monitorLabel">Monitor</span></figcaption>
         </figure>
       </div>

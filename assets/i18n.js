@@ -30,6 +30,7 @@ const translations = {
 // translations above still serve the privacy page, so these page-specific keys
 // must be applied after the shared dictionary is built.
 Object.assign(translations.pl, {
+  themeLabel: 'Motyw', themeLight: 'Jasny', themeDark: 'Ciemny', themeHelp: 'Początkowy motyw zależy od ustawień urządzenia.', themeSwitchToLight: 'Przełącz na jasny motyw', themeSwitchToDark: 'Przełącz na ciemny motyw',
   heroTitle: 'Pokój dziecka nigdy nie łączy się z internetem.',
   heroText: 'Nooklink przesyła obraz z telefonu-kamery prosto do odbiornika przez domową sieć Wi‑Fi. Bez konta pośrodku, bez serwerów, bez wysyłania danych.',
   step1Title: 'Uruchom kamerę',
@@ -47,8 +48,22 @@ translations.pl.googleStore = 'Google Play';
 translations.pl.downloadOn = 'Pobierz z';
 translations.pl.getItOn = 'DOSTĘPNE W';
 const english = Object.fromEntries(Array.from(document.querySelectorAll('[data-i18n]'), element => [element.dataset.i18n, element.innerHTML]));
+Object.assign(english, { themeSwitchToLight: 'Switch to light theme', themeSwitchToDark: 'Switch to dark theme' });
 const englishAria = Object.fromEntries(Array.from(document.querySelectorAll('[data-i18n-aria]'), element => [element.dataset.i18nAria, element.getAttribute('aria-label')]));
 const supported = ['en', 'pl', 'zh', 'hi', 'es', 'ar', 'pt', 'fr'];
+const themeChoices = ['light', 'dark'];
+const themeAriaKeys = { light: 'themeSwitchToDark', dark: 'themeSwitchToLight' };
+function applyTheme(theme) {
+  const selected = themeChoices.includes(theme) ? theme : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  document.documentElement.dataset.theme = selected;
+  const picker = document.getElementById('theme');
+  if (picker) {
+    picker.setAttribute('aria-pressed', String(selected === 'dark'));
+    picker.dataset.theme = selected;
+  }
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) metaTheme.setAttribute('content', selected === 'light' ? '#fffaf3' : '#17141a');
+}
 function applyLanguage(code) {
   const language = supported.includes(code) ? code : 'en';
   const dictionary = translations[language] || {};
@@ -64,6 +79,11 @@ function applyLanguage(code) {
     const value = dictionary[element.dataset.i18nAria] || englishAria[element.dataset.i18nAria];
     if (value) element.setAttribute('aria-label', value);
   });
+  const themeToggle = document.getElementById('theme');
+  if (themeToggle) {
+    const key = themeAriaKeys[document.documentElement.dataset.theme];
+    themeToggle.setAttribute('aria-label', dictionary[key] || english[key]);
+  }
   const picker = document.getElementById('language');
   if (picker) picker.value = language;
   document.title = document.body.dataset.page === 'privacy'
@@ -71,6 +91,8 @@ function applyLanguage(code) {
     : `Nooklink — ${dictionary.heroNote || 'close to home'}`;
   try { localStorage.setItem('nooklink-language', language); } catch (_) {}
 }
+applyTheme(document.documentElement.dataset.theme);
+document.getElementById('theme')?.addEventListener('click', () => applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'));
 let saved;
 try { saved = localStorage.getItem('nooklink-language'); } catch (_) {}
 const browserLanguage = navigator.language.toLowerCase().split('-')[0];
